@@ -11,8 +11,8 @@ import ejercicio1.DiaDeLaSemana;
 public class AlmacenDeDias {
 
 	private String nombre;
-	private static List<DiaDeLaSemana> listaDeDiasDeLaSemana = new ArrayList<>();
-	private static Map <DiaDeLaSemana,Integer> mapaParaContarDias = new HashMap<>();
+	private List<DiaDeLaSemana> listaDeDiasDeLaSemana = new ArrayList<>();
+	private Map <DiaDeLaSemana,Integer> mapaParaContarDias = new HashMap<>();
 	private static Random random = new Random();	
 	
 	/*metodos para constructor*/
@@ -31,36 +31,33 @@ public class AlmacenDeDias {
 	
 	public AlmacenDeDias(String nombre) {
 		this.nombre = nombre;
-		rellenarListaYMapa();
-		
+		rellenarListaYMapa();	
 	}	
 	
 	/* métodos de actualización*/	
 	public void addDiaDeLaSemana() {
-		addDiaDeLaSemanaStatic();
-	}
-	
-	public static void addDiaDeLaSemanaStatic() {
 		DiaDeLaSemana diaAleatorio = generarDiaAleatorio();
 		listaDeDiasDeLaSemana.add(diaAleatorio);
 		mapaParaContarDias.compute(diaAleatorio, (DiaDeLaSemana key, Integer value)-> value==null?1:value+1);
 	}
 	
-	public void deleteDiaDeLaSemana(DiaDeLaSemana diaParaBorrar) {
-		deleteDiaDeLaSemanaStatic(diaParaBorrar);	
+	public static void addDiaDeLaSemanaStatic( AlmacenDeDias almacen) {
+		almacen.addDiaDeLaSemana();
 	}
-		
-	public static void deleteDiaDeLaSemanaStatic(DiaDeLaSemana diaParaBorrar) {
+	
+	public void deleteDiaDeLaSemana(DiaDeLaSemana diaParaBorrar) {
 		while(listaDeDiasDeLaSemana.contains(diaParaBorrar)) {
 			listaDeDiasDeLaSemana.remove(diaParaBorrar);
 		}
 		mapaParaContarDias.remove(diaParaBorrar);
+	}
 		
+	public static void deleteDiaDeLaSemanaStatic(AlmacenDeDias almacen, DiaDeLaSemana diaParaBorrar) {
+		almacen.deleteDiaDeLaSemana(diaParaBorrar);
 	}
 	
 	
 	/*report*/	
-	
 	private String comprobarCantidadDeDia(DiaDeLaSemana diaDeLaSemana) {
 		return String.format("%s", mapaParaContarDias.get(diaDeLaSemana)==null?"no hay":mapaParaContarDias.get(diaDeLaSemana));
 	}
