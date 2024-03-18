@@ -13,7 +13,7 @@ public class Test {
 	System.out.println();
 	
 	almacen1.addDiaDeLaSemana();
-	AlmacenDeDias.addDiaDeLaSemanaStatic();
+	AlmacenDeDias.addDiaDeLaSemanaStatic(almacen1);
 	
 	System.out.println(almacen1);
 	
